@@ -1,0 +1,11 @@
+framework module SelectorFramework {
+  umbrella header "SelectorFramework.h"
+
+  export *
+  module * { export * }
+}
+
+module SelectorFramework.Swift {
+    header "SelectorFramework-Swift.h"
+    requires objc
+}

@@ -1,0 +1,51 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.5.1 (swiftlang-1300.0.31.4 clang-1300.0.29.6)
+// swift-module-flags: -target arm64-apple-ios15.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name SelectorFramework
+import Foundation
+@_exported import SelectorFramework
+import Swift
+import UIKit
+import _Concurrency
+public protocol CarousalSelectorDelegate : AnyObject {
+  func carousalSelector(_ selector: SelectorFramework.CarousalSelector, willRemoveItemAt index: Swift.Int)
+  func carousalSelectorWillStartEditing(_ selector: SelectorFramework.CarousalSelector)
+  func numberOfItems(in selector: SelectorFramework.CarousalSelector) -> Swift.Int
+  func itemForIndex(_ index: Swift.Int, in selector: SelectorFramework.CarousalSelector) -> SelectorFramework.CarousalItem
+  func carousalSelector(_ selector: SelectorFramework.CarousalSelector, didSelectItemAt index: Swift.Int)
+}
+@objc @_inheritsConvenienceInitializers @IBDesignable @_Concurrency.MainActor(unsafe) public class CarousalSelector : UIKit.UIView, UIKit.UIGestureRecognizerDelegate, QuartzCore.CAAnimationDelegate {
+  @_Concurrency.MainActor(unsafe) weak public var delegate: SelectorFramework.CarousalSelectorDelegate?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) public var viewcollection: UIKit.UICollectionView!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) public var viewForTransition: UIKit.UIView!
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) public func reloadData()
+  @objc deinit
+}
+extension SelectorFramework.CarousalSelector : UIKit.UICollectionViewDelegate, UIKit.UICollectionViewDataSource, UIKit.UICollectionViewDelegateFlowLayout {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func numberOfSections(in collectionView: UIKit.UICollectionView) -> Swift.Int
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func collectionView(_ collectionView: UIKit.UICollectionView, numberOfItemsInSection section: Swift.Int) -> Swift.Int
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func collectionView(_ collectionView: UIKit.UICollectionView, cellForItemAt indexPath: Foundation.IndexPath) -> UIKit.UICollectionViewCell
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func collectionView(_ collectionView: UIKit.UICollectionView, didSelectItemAt indexPath: Foundation.IndexPath)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func collectionView(_ collectionView: UIKit.UICollectionView, layout collectionViewLayout: UIKit.UICollectionViewLayout, sizeForItemAt indexPath: Foundation.IndexPath) -> CoreGraphics.CGSize
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class CarousalSelectorCell : UIKit.UICollectionViewCell {
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) public var itemSelectedButton: UIKit.UIButton!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) public var imageView: UIKit.UIImageView!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) public var lblTitle: UIKit.UILabel!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) public var viewSelected: UIKit.UIView!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) public var deleteButton: UIKit.UIButton!
+  @objc override dynamic public func awakeFromNib()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public struct CarousalItem {
+  public var image: UIKit.UIImage
+  public var title: Swift.String
+  public var backgroundColor: UIKit.UIColor
+  public var borderColor: UIKit.UIColor
+  public var showsBorder: Swift.Bool
+  public var canBeEdited: Swift.Bool
+  public init(image: UIKit.UIImage = UIImage(), title: Swift.String = "", backgroundColor: UIKit.UIColor = .gray, borderColor: UIKit.UIColor = .lightText, showsBorder: Swift.Bool = false, canBeEdited: Swift.Bool = false)
+}
